@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-int cont = 0;
 int contPersonagem = 0; //Contador de cada Personagem
-int totalFichas = 10;
-int qntTotalPers = 6;
+int totalFichas = 10; //numero maximo de fichas
+int qntTotalPers = 0; //quantidade total de personagens
 
-struct Ficha{ //Força, Percepção, Resistência, Carisma, Inteligência, Agilidade e Sorte
+//Cria uma struct para a ficha
+struct Ficha{
     char nome[20];
     char descricao[20];
     int forca;
@@ -20,25 +20,19 @@ struct Ficha{ //Força, Percepção, Resistência, Carisma, Inteligência, Agilidade 
     int id;
 };
 
+//Funcao para popular as Structs com os dados obtidos da funcao pegaDados
 void populaFichas(char *buffer, int size, struct Ficha Fichas[totalFichas]){
-
     int i;
-
     char primeiraLetra;
-    char *linha = (char *)malloc(size);
+    char *linha = (char *)malloc(size); //Ponteiro para guardar as linhas
     char *descricao;
-    strcpy ( linha, buffer) ;
-    descricao = strrchr(linha, ',');
+    strcpy ( linha, buffer) ; //copia a string buffer para linha
     primeiraLetra = linha[0];
 
-    //printf("%s", nome);
-    //printf("%c", primeiraLetra);
-    //if(primeiraLetra != '#' && primeiraLetra != '\n' && primeiraLetra != NULL ){
-    if(primeiraLetra == '3' || primeiraLetra == '4' || primeiraLetra == '8' ){
-        //Fichas[cont].nome = ;
-        //Fichas[cont].descricao = ;
-        Fichas[cont].id = cont;
-
+    //Se a primeira letra for um numero
+    if(primeiraLetra == '0' || primeiraLetra == '1' || primeiraLetra == '2'|| primeiraLetra == '3' || primeiraLetra == '4' || primeiraLetra == '5'
+       || primeiraLetra == '6'|| primeiraLetra == '7' || primeiraLetra == '8' || primeiraLetra == '9'  ){
+        Fichas[contPersonagem].id = contPersonagem;
         char *desmembra;
         char *teste;
         char teste1[40];
@@ -49,8 +43,6 @@ void populaFichas(char *buffer, int size, struct Ficha Fichas[totalFichas]){
             switch(contCaracteristica){
                 case 0:
                     Fichas[contPersonagem].forca = atoi(desmembra);
-                    //printf(">%s<", desmembra);
-                    //printf(">%d<", Fichas[contPersonagem].forca);
                 break;
                 case 1:
                     Fichas[contPersonagem].percep = atoi(desmembra);
@@ -91,7 +83,6 @@ void populaFichas(char *buffer, int size, struct Ficha Fichas[totalFichas]){
 
         //printf("%d", Fichas[0].forca);
         //printf("%s *** ", desmembra);
-        cont++;
         contPersonagem++;
     }
 }
@@ -136,13 +127,14 @@ int main(int argc, char *argv[]) {
     printf("Bem vindo ao jogo!\n");
     printf("Escolha uma classe para ver sua ficha:\n");
     int i;
+    qntTotalPers = contPersonagem; //recebe o valor da qnt de personagens
     for(i=0;i<qntTotalPers;i++){
         printf("(%i) -- %s", i,Fichas[i].descricao);
         //printf("%d", i);
     }
     printf("\nDigite o numero da classe:");
     scanf("%i", &num);
-    while(num < 6){
+    while(num <= qntTotalPers-1){
         printf("\nNome: %s", Fichas[num].nome);
         printf("\nDescricao: %s", Fichas[num].descricao);
         printf("\nForca: %d", Fichas[num].forca);

@@ -21,3 +21,5 @@
 4,8,3,8,7,5,5,Moira Brown,Expert
 
 4,4,6,9,5,5,7,Three Dog,Radio Host
+
+1,1,1,1,1,1,1,Jooao Maria,Rodeio Grande
