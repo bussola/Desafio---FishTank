@@ -66,23 +66,12 @@ void populaFichas(char *buffer, int size, struct Ficha Fichas[totalFichas]){
                      strcpy(Fichas[contPersonagem].nome , desmembra);
                 break;
                 case 8:
-                    //tamanho = strlen(desmembra);
-                    //strncpy(teste1, desmembra, tamanho-1);
                     strcpy(Fichas[contPersonagem].descricao , desmembra);
-                    //printf (">%s<",desmembra);
-                    //printf (">%s<",teste1);
-                    //printf (">%i<",tamanho);
                 break;
             }
-            //printf (">%s<",desmembra);
-            //printf(" *%d* ", contCaracteristica);
-            //printf(" *%d*\n", contPersonagem);
             desmembra = strtok (NULL, ",");
             contCaracteristica++;
         }
-
-        //printf("%d", Fichas[0].forca);
-        //printf("%s *** ", desmembra);
         contPersonagem++;
     }
 }
@@ -119,34 +108,107 @@ void pegaDados(struct Ficha Fichas[totalFichas]){ //Pega os dados do txt
 
 }
 
+void adiciona(struct Ficha Fichas[totalFichas]){
+    char aux[10];
+    int num;
+    FILE *f = fopen("fichas.txt", "a");
+    if(f){
+        fputc ( '\n' , f );
+        printf("\nDigite a forca do personagem:");
+        scanf("%i", &num);
+        fprintf(f, "%d,", num);
+        Fichas[qntTotalPers].forca = num;
+
+        printf("\nDigite a percepcao do personagem:");
+        scanf("%i", &num);
+        fprintf(f, "%d,", num);
+        Fichas[qntTotalPers].percep = num;
+
+        printf("\nDigite a resistencia do personagem:");
+        scanf("%i", &num);
+        fprintf(f, "%d,", num);
+        Fichas[qntTotalPers].resist = num;
+
+        printf("\nDigite o carisma do personagem:");
+        scanf("%i", &num);
+        fprintf(f, "%d,", num);
+        Fichas[qntTotalPers].caris = num;
+
+        printf("\nDigite a inteligencia do personagem:");
+        scanf("%i", &num);
+        fprintf(f, "%d,", num);
+        Fichas[qntTotalPers].intel = num;
+
+        printf("\nDigite a agilidade do personagem:");
+        scanf("%i", &num);
+        fprintf(f, "%d,", num);
+        Fichas[qntTotalPers].agil = num;
+
+        printf("\nDigite a sorte do personagem:");
+        scanf("%i", &num);
+        fprintf(f, "%d,", num);
+        Fichas[qntTotalPers].sorte = num;
+
+        printf("\nDigite o nome do personagem:");
+        scanf("%s", aux);
+        fputs(aux, f);
+        fputs(",", f);
+        strcpy(Fichas[qntTotalPers].nome , aux);
+
+        printf("\nDigite a descricao do personagem:");
+        scanf("%s", aux);
+        fputs(aux, f);
+        strcpy(Fichas[qntTotalPers].descricao , aux);
+
+        fclose (f);
+    }
+    else{
+        printf("Arquivo nao encontrado.");
+    }
+    qntTotalPers++;
+}
+
 int main(int argc, char *argv[]) {
     struct Ficha Fichas[totalFichas];
     pegaDados(Fichas);
-
-    int num;
-    printf("Bem vindo ao jogo!\n");
-    printf("Escolha uma classe para ver sua ficha:\n");
-    int i;
     qntTotalPers = contPersonagem; //recebe o valor da qnt de personagens
-    for(i=0;i<qntTotalPers;i++){
-        printf("(%i) -- %s", i,Fichas[i].descricao);
-        //printf("%d", i);
-    }
-    printf("\nDigite o numero da classe:");
-    scanf("%i", &num);
-    while(num <= qntTotalPers-1){
-        printf("\nNome: %s", Fichas[num].nome);
-        printf("\nDescricao: %s", Fichas[num].descricao);
-        printf("\nForca: %d", Fichas[num].forca);
-        printf("\nPercepcao: %d", Fichas[num].percep);
-        printf("\nResistencia: %d", Fichas[num].resist);
-        printf("\nCarisma: %d", Fichas[num].caris);
-        printf("\nInteligencia: %d", Fichas[num].intel);
-        printf("\nAgilidade: %d", Fichas[num].agil);
-        printf("\nSorte: %d", Fichas[num].sorte);
-        printf("\nDigite um numero maior que %i para sair:", qntTotalPers-1);
+    int num = 0;
+    while(num != 3){
+        printf("Bem vindo ao jogo!\n");
+        printf("Escolha uma opcao:");
+        printf("\n(1) para adicionar ficha");
+        printf("\n(2) para verificar ficha");
+        printf("\n(3) para sair\n");
         scanf("%i", &num);
+
+        if(num == 1){
+            adiciona(Fichas);
+        }
+        else if(num == 2){
+            printf("Escolha uma classe para ver sua ficha:\n");
+            int i;
+            for(i=0;i<qntTotalPers;i++){
+                printf("\n(%i) -- %s", i,Fichas[i].descricao);
+            }
+            printf("\nDigite o numero da classe:");
+            scanf("%i", &num);
+            while(num <= qntTotalPers-1){
+                printf("\nNome: %s", Fichas[num].nome);
+                printf("\nDescricao: %s", Fichas[num].descricao);
+                printf("\nForca: %d", Fichas[num].forca);
+                printf("\nPercepcao: %d", Fichas[num].percep);
+                printf("\nResistencia: %d", Fichas[num].resist);
+                printf("\nCarisma: %d", Fichas[num].caris);
+                printf("\nInteligencia: %d", Fichas[num].intel);
+                printf("\nAgilidade: %d", Fichas[num].agil);
+                printf("\nSorte: %d", Fichas[num].sorte);
+                printf("\nDigite um numero maior que %i para sair:", qntTotalPers-1);
+                scanf("%i", &num);
+            }
+        }
     }
+
+
     printf("Ate logo");
     return 0;
 }
