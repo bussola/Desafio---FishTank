@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1502289496 source:c:\users\bussola\google drive\programacao\fish tank\fish_tank\fish.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1502274364 source:c:\users\bussola\google drive\programacao\fish tank\fish_tank\teste.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
