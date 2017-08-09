@@ -1,0 +1,68 @@
+Criacao do ambiente (Ubuntu):
+Instalacao da IDE:
+O programa utilizará a linguagem C, usarei a IDE CodeBLocks:
+No terminal digite:  'sudo apt-get install codeblocks':
+https://askubuntu.com/questions/198442/how-to-install-the-codeblocks-ide
+
+- Criar o programa do começo:
+Abra a IDE, crie um novo projeto e adicione um arquivo com o nome de 'fish.c' ;
+Salve o arquivo na pasta desejada;
+Adicione o arquivo .txt na mesma pasta;
+Crie seu código e compile pela IDE;
+
+ou
+
+- Clonar o projeto do GitHub:
+Instale o GitHub: 
+https://www.digitalocean.com/community/tutorials/como-instalar-o-git-no-ubuntu-14-04-pt
+Pelo terminal, entre na pasta desejada, digite 'git.init';
+depois digite 'git clone https://github.com/bussola/Desafio---FishTank.git' ;
+Agora pode abrir o programa por alguma IDE ou qualquer editor de texto;
+Utilizando o editor nano:
+no terminal navegue ate a pasta do arquivo fish.c e digite 'sudo nano fish.c' ;
+Faça as alterações necessárias, salve e feche o nano (Ctrl + X). Para rodar o código digite './fish.c' .
+
+
+Criacao do código:
+Como o codigo vai precisar abrir um txt, utilizaremos a funcao fopen:
+https://www.tutorialspoint.com/c_standard_library/c_function_fopen.htm
+Utilizaremos o txt apenas  para leitura, com o parametro 'r':
+'FILE *f = fopen("fichas.txt", "r");' .
+
+Com o txt aberto, podemos agora pegar suas informações, utilizando a funcao fgetc:
+https://www.tutorialspoint.com/c_standard_library/c_function_fgetc.htm
+Essa função retorna cada caracter lido no txt.
+Podemos criar um algoritmo para agrupar estes caracteres por linha, por exemplo:
+https://stackoverflow.com/questions/3081289/how-to-read-a-line-from-a-text-file-in-c-c
+
+Podemos analisar cada linha e criar um algoritmo para decidir se ela será utilizada ou não;
+Se  a linha começar com números, por exemplo, será utilizada.
+
+Com a linha selecionada, precisamos tratar a informação. Para isso, é necessario ter  conhecimento de algumas funções de string:
+http://www.cplusplus.com/reference/cstring/
+Utilizaremos em nosso código algumas dessas funções:
+strcpy -> Armazena a informação de uma String em outra;
+strtok -> "Quebra" a String utilizando tokens;
+
+Quando estivermos "desmembrando" a linha, precisaremos guardar as informações em algum lugar. Uma boa escolha é utilizar uma struct:
+struct Ficha{
+    char nome[20];
+    char descricao[20];
+    int forca;
+    int percep;
+    int resist;
+    int caris;
+    int intel;
+    int agil;
+    int sorte;
+    int id;
+};
+
+
+Foram criadas duas funções:
+pegaDados()  -> Faz o processo de abrir o txt e quebrá-lo em linhas
+populaFichas() -> Pega cada linha para tratá-la e popular a struct criada na main.
+
+O código está criado dinamicamente, de forma que linhas podem ser adicionadas no txt, desde que sigam o mesmo padrão das anteriores; A única variavel que precisa ser alterada caso existam mais de 10 fichas é a da linha 06:
+int totalFichas = 10; //numero maximo de fichas
+
